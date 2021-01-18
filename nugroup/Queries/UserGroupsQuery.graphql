@@ -1,0 +1,10 @@
+query UserGroups($userId: ID!, $authToken: String!) {
+    user(id: $userId, authToken: $authToken) {
+        id
+        username
+        groups {
+            id
+            name
+        }
+    }
+}

@@ -8,8 +8,14 @@
 import Foundation
 
 class Router: ObservableObject {
-    @Published var currentPage: Page = .login
+    @Published var currentPage: Page
+    
+    init() {
+        let userData = UserData()
+        self.currentPage = (userData.authToken == "" || userData.id == "" || userData.username == "") ? .login : .main
+    }
 }
+
 
 enum Page {
     case login

@@ -1,0 +1,12 @@
+mutation CreateComment($content: String!, $eventId: ID!, $userId: ID!, $authToken: String!) {
+    createComment(input: {content: $content, eventId: $eventId, userId: $userId, authToken: $authToken}) {
+        comment {
+            id
+            content
+            user {
+                id
+                username
+            }
+        }
+    }
+}

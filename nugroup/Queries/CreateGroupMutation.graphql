@@ -1,0 +1,9 @@
+mutation CreateGroup($name: String!, $userId: ID!, $authToken: String!) {
+    createGroup(input: {name: $name, userId: $userId, authToken: $authToken}) {
+        group {
+            id
+            name
+        }
+        errors
+    }
+}

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var router: Router
+    @EnvironmentObject var userData: UserData
     @State var username = ""
     @State var password = ""
     @State var signUp = false
@@ -18,13 +19,24 @@ struct LoginView: View {
             TextField("Username", text: $username).textFieldStyle(RoundedBorderTextFieldStyle())
             SecureField("Password", text: $password).textFieldStyle(RoundedBorderTextFieldStyle())
             Button("Confirm", action: {
-                print("confirm")
+                Network.shared.apollo.perform(mutation: LoginMutation(username: username, password: password)) { result in
+                    switch result {
+                    case .success(let graphQLResult):
+                        userData.authToken = (graphQLResult.data?.login?.authToken)!
+                        userData.id = (graphQLResult.data?.login?.user?.id)!
+                        userData.username = (graphQLResult.data?.login?.user?.username)!
+                        withAnimation(.easeIn(duration: 0.5)) {
+                            router.currentPage = .main
+                        }
+                    case .failure(let error): break
+                    }
+                }
             })
             Divider()
             Button("Don't have an account?", action: {
                 signUp.toggle()
             })
-        }.padding().sheet(isPresented: $signUp) { SignUpView() }
+        }.padding().sheet(isPresented: $signUp) { SignUpView().environmentObject(router) }
     }
 }
 

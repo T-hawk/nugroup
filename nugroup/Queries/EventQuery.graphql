@@ -1,0 +1,15 @@
+query Event($eventId: ID!, $userId: ID!, $authToken: String!) {
+    event(eventId: $eventId, userId: $userId, authToken: $authToken) {
+        id
+        title
+        content
+        comments {
+            id
+            content
+            user {
+                id
+                username
+            }
+        }
+    }
+}

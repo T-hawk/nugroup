@@ -1,0 +1,10 @@
+mutation CreateEvent($title: String!, $content: String!, $groupId: ID!, $userId: ID!, $authToken: String!) {
+    createEvent(input: {title: $title, content: $content, groupId: $groupId, userId: $userId, authToken: $authToken}) {
+        event {
+            id
+            title
+            content
+        }
+        errors
+    }
+}

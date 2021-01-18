@@ -1,0 +1,11 @@
+query Group($groupId: ID!, $userId: ID!, $authToken: String!) {
+    group(groupId: $groupId, userId: $userId, authToken: $authToken) {
+        id
+        name
+        events {
+            id
+            title
+            content
+        }
+    }
+}

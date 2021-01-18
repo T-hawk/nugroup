@@ -1,0 +1,10 @@
+mutation CreateUser($username: String!, $password: String!, $passwordConfirmation: String!) {
+    createUser(input: {username: $username, password: $password, passwordConfirmation: $passwordConfirmation}) {
+        user {
+            id
+            username
+        }
+        authToken
+        errors
+    }
+}
